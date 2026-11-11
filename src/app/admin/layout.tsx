@@ -55,10 +55,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   )
   if (!user && pathname !== '/admin') return null
 
-  if (pathname === '/admin') return <>{children}</>
+  if (pathname === '/admin') return <div className="dark">{children}</div>
 
   return (
-    <div className="min-h-screen bg-ink-950 flex">
+    <div className="dark min-h-screen bg-ink-950 text-ink-50 flex">
       {/* Mobile overlay */}
       {open && <div className="fixed inset-0 z-40 bg-black/50 lg:hidden" onClick={() => setOpen(false)} />}
 

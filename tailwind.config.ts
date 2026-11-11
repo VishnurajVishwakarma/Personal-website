@@ -9,7 +9,33 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+      },
       colors: {
+        canvas: {
+          DEFAULT: 'var(--bg-primary)',
+          secondary: 'var(--bg-secondary)',
+          surface: 'var(--surface)',
+          elevated: 'var(--surface-elevated)',
+        },
+        fg: {
+          DEFAULT: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent-primary)',
+          hover: 'var(--accent-primary-hover)',
+          foreground: 'var(--accent-foreground)',
+          subtle: 'var(--accent-subtle)',
+          warm: 'var(--accent-warm)',
+        },
+        hairline: {
+          DEFAULT: 'var(--border-subtle)',
+          strong: 'var(--border-strong)',
+        },
         ink: {
           50: "#f8f9fa",
           100: "#f1f3f5",

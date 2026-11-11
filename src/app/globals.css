@@ -2,20 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; background: #0a0a09; }
-body { background: #0a0a09; }
-::selection { background: rgba(200, 169, 107, .35); color: #f3f0e8; }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+:root {
+  color-scheme: light;
+  --bg-primary: #FAF8F5;
+  --bg-secondary: #F2EFE9;
+  --surface: #FFFFFF;
+  --surface-elevated: #FCFBF9;
+  --text-primary: #11151C;
+  --text-secondary: #414955;
+  --text-muted: #5C6573;
+  --accent-primary: #0B4F6C;
+  --accent-primary-hover: #083B52;
+  --accent-foreground: #FFFFFF;
+  --accent-subtle: rgba(11, 79, 108, 0.08);
+  --accent-warm: #876527;
+  --border-subtle: rgba(17, 21, 28, 0.10);
+  --border-strong: rgba(17, 21, 28, 0.22);
+  --grid-line: rgba(17, 21, 28, 0.045);
 }
 
-@layer base {
-  body {
-    @apply bg-ink-50 text-ink-900 font-sans antialiased selection:bg-[#00f0ff]/30 selection:text-ink-950;
+.dark {
+  color-scheme: dark;
+  --bg-primary: #0B0E13;
+  --bg-secondary: #10141B;
+  --surface: #141922;
+  --surface-elevated: #1A212D;
+  --text-primary: #F4F1EA;
+  --text-secondary: #B4BCC8;
+  --text-muted: #8B95A5;
+  --accent-primary: #2DD4BF;
+  --accent-primary-hover: #5EEAD4;
+  --accent-foreground: #071318;
+  --accent-subtle: rgba(45, 212, 191, 0.10);
+  --accent-warm: #D2B475;
+  --border-subtle: rgba(244, 241, 234, 0.10);
+  --border-strong: rgba(244, 241, 234, 0.22);
+  --grid-line: rgba(244, 241, 234, 0.04);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-feature-settings: "ss01" on, "cv02" on, "cv03" on;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--accent-primary);
+  color: var(--accent-foreground);
+}
+
+.editorial-grid-bg {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)];
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  .dark body {
-    @apply bg-ink-950 text-ink-50 selection:bg-[#00f0ff]/30 selection:text-white;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

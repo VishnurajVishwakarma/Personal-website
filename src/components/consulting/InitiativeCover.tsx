@@ -1,4 +1,6 @@
 import { Layers3, Network, Compass, BarChart3 } from 'lucide-react'
+import { Paper } from '@/components/looseleaf/Paper'
+import { InkBadge } from '@/components/looseleaf/InkBadge'
 
 export function InitiativeCover({
   slug,
@@ -9,40 +11,50 @@ export function InitiativeCover({
 }) {
   if (slug === 'business-intelligence-decision-systems') {
     return (
-      <div
+      <Paper
+        stock="ledger"
+        rules="ledger"
+        tape="corner"
+        tilt={false}
+        seed={`cover-${slug}`}
         aria-hidden="true"
-        className="editorial-grid-bg relative flex h-full min-h-[200px] flex-col justify-between overflow-hidden bg-[var(--bg-secondary)] p-5"
+        className="flex h-full min-h-[210px] flex-col justify-between p-5"
       >
-        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">
-          <span>Data Consolidation Blueprint</span>
-          <BarChart3 size={15} className="text-[var(--accent-primary)]" />
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ll-pencil-text)]">
+          <span>Data Consolidation Ledger</span>
+          <BarChart3 size={15} className="text-[var(--ll-ink-you)]" />
         </div>
         <div className="my-4 grid grid-cols-2 gap-2">
           {['Finance', 'Sales', 'Marketing', 'Operations'].map(source => (
             <div
               key={source}
-              className="rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 font-mono text-[11px] text-[var(--text-secondary)]"
+              className="rounded border border-[var(--ll-pencil-mark)] bg-[var(--ll-paper)] px-3 py-1.5 font-mono text-[11px] font-medium text-[var(--ll-ink)]"
             >
               {source}
             </div>
           ))}
         </div>
-        <div className="rounded-md border border-[var(--accent-primary)]/40 bg-[var(--accent-subtle)] px-3 py-2 text-center font-mono text-[11px] font-medium text-[var(--accent-primary)]">
+        <InkBadge variant="outline" size="sm" seed="cover-bi-badge" className="w-full justify-center">
           Unified Decision-Support Layer
-        </div>
-      </div>
+        </InkBadge>
+      </Paper>
     )
   }
 
   if (slug === 'zaprill') {
     return (
-      <div
+      <Paper
+        stock="graph"
+        rules="graph"
+        tape="top"
+        tilt={false}
+        seed={`cover-${slug}`}
         aria-hidden="true"
-        className="editorial-grid-bg relative flex h-full min-h-[200px] flex-col justify-between overflow-hidden bg-[var(--bg-secondary)] p-5"
+        className="flex h-full min-h-[210px] flex-col justify-between p-5"
       >
-        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ll-pencil-text)]">
           <span>Career Signal Intelligence</span>
-          <Layers3 size={15} className="text-[var(--accent-primary)]" />
+          <Layers3 size={15} className="text-[var(--ll-ink-you)]" />
         </div>
         <div className="my-4 space-y-2">
           {[
@@ -52,29 +64,34 @@ export function InitiativeCover({
           ].map(([title, note]) => (
             <div
               key={title}
-              className="flex items-center justify-between rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-xs"
+              className="flex items-center justify-between rounded border border-[var(--ll-pencil-mark)] bg-[var(--ll-paper)] px-3 py-1.5 text-xs"
             >
-              <span className="font-medium text-[var(--text-primary)]">{title}</span>
-              <span className="font-mono text-[10px] text-[var(--text-muted)]">{note}</span>
+              <span className="font-bold text-[var(--ll-ink)]">{title}</span>
+              <span className="font-mono text-[10px] text-[var(--ll-pencil-text)]">{note}</span>
             </div>
           ))}
         </div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--accent-warm)]">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--ll-orange-text)]">
           AI Product · Career Platform
         </p>
-      </div>
+      </Paper>
     )
   }
 
   if (slug === 'austrange-solutions') {
     return (
-      <div
+      <Paper
+        stock="index-card"
+        rules="index"
+        fastener="clip"
+        tilt={false}
+        seed={`cover-${slug}`}
         aria-hidden="true"
-        className="editorial-grid-bg relative flex h-full min-h-[200px] flex-col justify-between overflow-hidden bg-[var(--bg-secondary)] p-5"
+        className="flex h-full min-h-[210px] flex-col justify-between p-5"
       >
-        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ll-pencil-text)]">
           <span>Commercial Execution Model</span>
-          <Compass size={15} className="text-[var(--accent-primary)]" />
+          <Compass size={15} className="text-[var(--ll-ink-you)]" />
         </div>
         <div className="my-4 flex flex-col gap-2">
           {[
@@ -84,56 +101,62 @@ export function InitiativeCover({
           ].map(stage => (
             <div
               key={stage}
-              className="rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 font-mono text-[11px] text-[var(--text-secondary)]"
+              className="rounded border border-[var(--ll-pencil-mark)] bg-[var(--ll-paper)] px-3 py-1.5 font-mono text-[11px] text-[var(--ll-ink)]"
             >
               {stage}
             </div>
           ))}
         </div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--accent-primary)]">
-          Founder & COO Experience
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--ll-ink-you)]">
+          Founder &amp; COO Experience
         </p>
-      </div>
+      </Paper>
     )
   }
 
   if (slug === 'ciel') {
     return (
-      <div
+      <Paper
+        stock="sticky-yellow"
+        tape="corner"
+        tilt={false}
+        seed={`cover-${slug}`}
         aria-hidden="true"
-        className="editorial-grid-bg relative flex h-full min-h-[200px] flex-col justify-between overflow-hidden bg-[var(--bg-secondary)] p-5"
+        className="flex h-full min-h-[210px] flex-col justify-between p-5"
       >
-        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ll-ink-soft)]">
           <span>Ecosystem Pathways</span>
-          <Network size={15} className="text-[var(--accent-primary)]" />
+          <Network size={15} className="text-[var(--ll-ink)]" />
         </div>
         <div className="my-4 grid grid-cols-2 gap-2">
           {['Ideas', 'Institutions', 'Entrepreneurs', 'Industry'].map(node => (
             <div
               key={node}
-              className="rounded-md border border-[var(--border-subtle)] bg-[var(--surface)] px-3 py-2 text-center text-xs font-medium text-[var(--text-primary)]"
+              className="rounded border border-[var(--ll-pencil-mark)] bg-[var(--ll-paper)] px-3 py-1.5 text-center text-xs font-bold text-[var(--ll-ink)]"
             >
               {node}
             </div>
           ))}
         </div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--accent-warm)]">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--ll-ink)]">
           Validation · Prototyping · Incubation
         </p>
-      </div>
+      </Paper>
     )
   }
 
   return (
-    <div
+    <Paper
+      stock="slip"
+      tilt={false}
+      seed={`cover-${slug}`}
       aria-hidden="true"
-      className="editorial-grid-bg flex h-full min-h-[200px] flex-col items-center justify-center bg-[var(--bg-secondary)] p-6 text-center"
+      className="flex h-full min-h-[210px] flex-col items-center justify-center p-6 text-center"
     >
-      <BarChart3 size={32} className="text-[var(--accent-primary)]" />
-      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--text-muted)]">
+      <BarChart3 size={32} className="text-[var(--ll-ink-you)]" />
+      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ll-pencil-text)]">
         {category || 'Systems Architecture'}
       </p>
-    </div>
+    </Paper>
   )
 }
-

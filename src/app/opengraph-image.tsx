@@ -16,90 +16,116 @@ export default function OpenGraphImage() {
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          backgroundColor: '#0B0E13',
-          color: '#F4F1EA',
-          padding: '72px 84px',
-          border: '1px solid rgba(244, 241, 234, 0.12)',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#a8c8bb',
+          padding: '44px',
           fontFamily: 'system-ui, -apple-system, sans-serif',
         }}
       >
         <div
           style={{
+            width: '100%',
+            height: '100%',
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'space-between',
-            alignItems: 'center',
+            backgroundColor: '#f8f5ee',
+            color: '#2a2420',
+            padding: '56px 68px',
+            border: '2px solid #2a2420',
+            boxShadow: '0 14px 30px rgba(42, 36, 32, 0.18)',
           }}
         >
           <div
             style={{
               display: 'flex',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              gap: '16px',
-              fontSize: '20px',
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: '#2DD4BF',
             }}
           >
-            <span>VV</span>
-            <span style={{ color: '#64748B' }}>/</span>
-            <span>{BRAND.location}</span>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                fontSize: '20px',
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: '#2c4f9e',
+                fontWeight: 700,
+              }}
+            >
+              <span
+                style={{
+                  backgroundColor: '#df6b3c',
+                  color: '#1b1715',
+                  padding: '6px 12px',
+                  border: '2px solid #2a2420',
+                }}
+              >
+                VV
+              </span>
+              <span>{BRAND.location}</span>
+            </div>
+            <div
+              style={{
+                fontSize: '18px',
+                color: '#a84718',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                fontWeight: 600,
+              }}
+            >
+              AI · Business · IT &amp; Technology
+            </div>
           </div>
-          <div
-            style={{
-              fontSize: '18px',
-              color: '#D2B475',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-            }}
-          >
-            AI · Business · IT & Technology
-          </div>
-        </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          <div
-            style={{
-              fontSize: '64px',
-              fontWeight: 700,
-              lineHeight: 1.08,
-              letterSpacing: '-0.03em',
-              maxWidth: '960px',
-            }}
-          >
-            Turning Technology into Business Advantage.
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div
+              style={{
+                fontSize: '60px',
+                fontWeight: 700,
+                lineHeight: 1.08,
+                letterSpacing: '-0.025em',
+                maxWidth: '960px',
+                color: '#2a2420',
+                borderBottom: '6px solid #df6b3c',
+                paddingBottom: '12px',
+              }}
+            >
+              Turning Technology into Business Advantage.
+            </div>
+            <div
+              style={{
+                fontSize: '26px',
+                color: '#4c433c',
+                lineHeight: 1.4,
+                maxWidth: '900px',
+              }}
+            >
+              Helping businesses adopt AI, optimize operations, and build intelligent technology systems for sustainable, long-term growth.
+            </div>
           </div>
-          <div
-            style={{
-              fontSize: '28px',
-              color: '#B4BCC8',
-              lineHeight: 1.4,
-              maxWidth: '880px',
-            }}
-          >
-            Helping businesses adopt AI, optimize operations, and build intelligent technology systems for sustainable, long-term growth.
-          </div>
-        </div>
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderTop: '1px solid rgba(244, 241, 234, 0.14)',
-            paddingTop: '28px',
-            fontSize: '22px',
-            color: '#F4F1EA',
-          }}
-        >
-          <span>{BRAND.name}</span>
-          <span style={{ color: '#8B95A5' }}>vishnurajvishwakarma.in</span>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderTop: '2px dashed rgba(42, 36, 32, 0.25)',
+              paddingTop: '24px',
+              fontSize: '22px',
+              color: '#2a2420',
+              fontWeight: 600,
+            }}
+          >
+            <span>{BRAND.name}</span>
+            <span style={{ color: '#2c4f9e' }}>vishnurajvishwakarma.in</span>
+          </div>
         </div>
       </div>
     ),
     { ...size }
   )
 }
-

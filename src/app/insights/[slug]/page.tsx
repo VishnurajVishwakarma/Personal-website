@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import { SiteShell } from '@/components/consulting/SiteShell'
+import { Paper } from '@/components/looseleaf/Paper'
+import { InkRule } from '@/components/looseleaf/InkRule'
 import { supabase } from '@/lib/supabase'
 import type { Article } from '@/types'
 
@@ -58,31 +60,42 @@ export default async function ArticlePage({
 
   return (
     <SiteShell>
-      <article className="mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-        <Link
-          href="/insights"
-          className="focus-ring inline-flex items-center gap-2 rounded text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent-primary)]"
+      <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+        <Paper
+          stock="paper"
+          tape="both"
+          tapeKind="masking"
+          tilt={false}
+          seed={`article-sheet-${article.slug}`}
+          className="px-6 py-10 sm:px-10 sm:py-12"
         >
-          <ArrowLeft size={15} aria-hidden="true" />
-          Back to Insights
-        </Link>
+          <Link
+            href="/insights"
+            className="inline-flex items-center gap-2 font-mono text-xs font-medium text-[var(--ll-ink-soft)] underline-offset-4 hover:text-[var(--ll-link)] hover:underline"
+          >
+            <ArrowLeft size={14} aria-hidden="true" />
+            Back to Insights
+          </Link>
 
-        <header className="mt-8 border-b border-[var(--border-subtle)] pb-8">
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-[var(--accent-primary)]">
-            {article.category}
-            {article.publishedAt ? ` · ${article.publishedAt}` : ''}
-          </p>
-          <h1 className="mt-4 text-[clamp(2rem,4vw,3.1rem)] font-bold leading-[1.1] tracking-[-0.03em] text-[var(--text-primary)]">
-            {article.title}
-          </h1>
-          <p className="mt-4 text-lg leading-8 text-[var(--text-secondary)]">
-            {article.excerpt}
-          </p>
-        </header>
+          <header className="mt-8">
+            <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-[var(--ll-ink-you)]">
+              {article.category}
+              {article.publishedAt ? ` · ${article.publishedAt}` : ''}
+            </p>
+            <h1 className="mt-4 font-sans text-[clamp(2rem,4vw,3.1rem)] font-bold leading-[1.1] tracking-tight text-[var(--ll-ink)]">
+              {article.title}
+            </h1>
+            <p className="mt-4 text-lg leading-8 text-[var(--ll-ink-soft)]">
+              {article.excerpt}
+            </p>
+          </header>
 
-        <div className="mt-10 whitespace-pre-wrap text-base leading-8 text-[var(--text-secondary)] sm:text-[1.0625rem]">
-          {article.content}
-        </div>
+          <InkRule variant="pencil" seed={`article-rule-${article.slug}`} className="my-8" />
+
+          <div className="whitespace-pre-wrap text-base leading-8 text-[var(--ll-ink-soft)] sm:text-[1.0625rem]">
+            {article.content}
+          </div>
+        </Paper>
       </article>
     </SiteShell>
   )

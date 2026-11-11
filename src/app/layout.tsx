@@ -1,27 +1,24 @@
 import type { Metadata, Viewport } from 'next'
-import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google'
+import Script from 'next/script'
+import { IBM_Plex_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/consulting/ThemeProvider'
+import { InkProviderWrap } from '@/components/looseleaf/InkProviderWrap'
 import { BRAND } from '@/lib/consulting-content'
 import './globals.css'
 
 const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');var d=t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);var r=document.documentElement;if(d){r.classList.add('dark');r.style.colorScheme='dark';}else{r.classList.remove('dark');r.style.colorScheme='light';}}catch(e){}})();`
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-})
-
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
+  weight: ['400', '500', '600'],
   variable: '--font-mono',
   display: 'swap',
 })
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#FAF8F5' },
-    { media: '(prefers-color-scheme: dark)', color: '#0B0E13' },
+    { media: '(prefers-color-scheme: light)', color: '#a8c8bb' },
+    { media: '(prefers-color-scheme: dark)', color: '#171b22' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -64,6 +61,7 @@ const structuredData = {
       '@id': `${BRAND.siteUrl}/#person`,
       name: BRAND.name,
       url: BRAND.siteUrl,
+      image: `${BRAND.siteUrl}/images/vishnu-portrait.png`,
       email: `mailto:${BRAND.email}`,
       jobTitle: BRAND.role,
       description: BRAND.seoDescription,
@@ -101,15 +99,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${plusJakartaSans.variable} ${jetBrainsMono.variable}`}
+      className={ibmPlexMono.variable}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
-      </head>
-      <body className="min-h-screen bg-[var(--bg-primary)] font-sans text-[var(--text-primary)] antialiased">
+      <body className="ll-desk min-h-screen font-sans text-[var(--ll-ink)] antialiased">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
         <ThemeProvider>
-          {children}
+          <InkProviderWrap>
+            {children}
+          </InkProviderWrap>
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

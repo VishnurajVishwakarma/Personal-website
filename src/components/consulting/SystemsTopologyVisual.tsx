@@ -1,292 +1,176 @@
 'use client'
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from 'framer-motion'
-import { ArrowUpRight, Cpu, Database, LineChart, Workflow } from 'lucide-react'
-
-const emptySubscribe = () => () => {}
+import { useState } from 'react'
+import { Cpu, Database, GitMerge, TrendingUp } from 'lucide-react'
+import { Paper } from '@/components/looseleaf/Paper'
+import { InkBadge } from '@/components/looseleaf/InkBadge'
+import { InkRule } from '@/components/looseleaf/InkRule'
 
 interface TopologyNode {
-  id: string
-  index: string
+  id: 'operations' | 'data' | 'ai' | 'value'
+  code: string
   label: string
-  shortLabel: string
-  summary: string
-  tags: string[]
-  icon: typeof Workflow
+  sublabel: string
+  detail: string
+  focusAreas: string[]
+  icon: typeof GitMerge
 }
 
-const TOPOLOGY_NODES: TopologyNode[] = [
+const NODES: TopologyNode[] = [
   {
     id: 'operations',
-    index: '01',
+    code: '01 · OPS',
     label: 'Business Operations',
-    shortLabel: 'Operations',
-    summary:
-      'Map workflows, remove manual bottlenecks, and standardize operational execution before scaling software.',
-    tags: ['Workflow Analysis', 'Process Optimization'],
-    icon: Workflow,
-  },
-  {
-    id: 'ai',
-    index: '02',
-    label: 'AI & Automation',
-    shortLabel: 'Applied AI',
-    summary:
-      'Identify practical AI use cases and embed automation directly into real team decisions.',
-    tags: ['AI Adoption', 'Intelligent Systems'],
-    icon: Cpu,
+    sublabel: 'Workflows & Process Clarity',
+    detail:
+      'Start by mapping core business bottlenecks, manual handoffs, and unit economics before choosing tools.',
+    focusAreas: ['Process Mapping', 'Bottleneck Audit', 'SOP Standardization'],
+    icon: GitMerge,
   },
   {
     id: 'data',
-    index: '03',
-    label: 'Data & Intelligence',
-    shortLabel: 'Intelligence',
-    summary:
-      'Consolidate fragmented finance, sales, and operations data into reliable decision-support views.',
-    tags: ['Business Intelligence', 'Systems Integration'],
+    code: '02 · BI',
+    label: 'Connected Data Layer',
+    sublabel: 'Finance, Sales & Ops Visibility',
+    detail:
+      'Consolidate siloed spreadsheets and operational records into unified, reliable decision-support views.',
+    focusAreas: ['Unified Reporting', 'Financial Visibility', 'KPI Structure'],
     icon: Database,
   },
   {
-    id: 'strategy',
-    index: '04',
-    label: 'Finance & Strategy',
-    shortLabel: 'Strategy',
-    summary:
-      'Evaluate every technology choice against investment cost, operational impact, and long-term value.',
-    tags: ['Transformation Economics', 'Long-Term Growth'],
-    icon: LineChart,
+    id: 'ai',
+    code: '03 · AI',
+    label: 'Practical AI Systems',
+    sublabel: 'Targeted Automation & Augmentation',
+    detail:
+      'Introduce practical AI workflows and software tools where human-in-the-loop leverage is verifiable.',
+    focusAreas: ['Use-Case Feasibility', 'Workflow Automation', 'Tool Integration'],
+    icon: Cpu,
+  },
+  {
+    id: 'value',
+    code: '04 · ROI',
+    label: 'Strategic Leverage',
+    sublabel: 'Efficiency & Long-Term Advantage',
+    detail:
+      'Align systems architecture with capital discipline, scalability targets, and durable competitive strength.',
+    focusAreas: ['Build vs. Buy Clarity', 'Scalable Architecture', 'Adoption Cadence'],
+    icon: TrendingUp,
   },
 ]
 
 export function SystemsTopologyVisual() {
-  const mounted = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false
-  )
-  const prefersReducedMotion = useReducedMotion()
-  const reduced = mounted && Boolean(prefersReducedMotion)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [activeId, setActiveId] = useState<string>('operations')
-  const [inView, setInView] = useState(true)
-
-  const pointerX = useMotionValue(0)
-  const pointerY = useMotionValue(0)
-  const smoothX = useSpring(pointerX, { stiffness: 120, damping: 24 })
-  const smoothY = useSpring(pointerY, { stiffness: 120, damping: 24 })
-  const rotateY = useTransform(smoothX, [-0.5, 0.5], [-3, 3])
-  const rotateX = useTransform(smoothY, [-0.5, 0.5], [2.5, -2.5])
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el || typeof IntersectionObserver === 'undefined') return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting)
-      },
-      { threshold: 0.1 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  const activeNode =
-    TOPOLOGY_NODES.find(node => node.id === activeId) ?? TOPOLOGY_NODES[0]
-
-  const shouldAnimateSignals = mounted && !reduced && inView
+  const [activeId, setActiveId] = useState<TopologyNode['id']>('operations')
+  const activeNode = NODES.find(n => n.id === activeId) ?? NODES[0]
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full [perspective:1200px]"
-      onPointerMove={event => {
-        if (!mounted || reduced || event.pointerType === 'touch') return
-        const rect = event.currentTarget.getBoundingClientRect()
-        pointerX.set((event.clientX - rect.left) / rect.width - 0.5)
-        pointerY.set((event.clientY - rect.top) / rect.height - 0.5)
-      }}
-      onPointerLeave={() => {
-        pointerX.set(0)
-        pointerY.set(0)
-      }}
+    <Paper
+      stock="graph"
+      rules="graph"
+      tape="corner"
+      tapeKind="masking"
+      fastener="clip"
+      tilt={false}
+      seed="hero-systems-blueprint"
+      className="p-5 sm:p-6"
     >
-      <motion.div
-        style={{ rotateX, rotateY }}
-        className="relative overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] shadow-[0_24px_60px_-28px_rgba(11,14,19,0.28)] dark:shadow-[0_28px_70px_-30px_rgba(0,0,0,0.7)]"
-      >
-        {/* Architectural Top Telemetry Bar */}
-        <div className="flex items-center justify-between border-b border-[var(--border-subtle)] bg-[var(--bg-secondary)]/70 px-5 py-3.5">
-          <div className="flex items-center gap-2.5">
-            <span
-              className={`h-2 w-2 rounded-full bg-[var(--accent-primary)] ${
-                shouldAnimateSignals ? 'animate-pulse' : ''
-              }`}
-              aria-hidden="true"
-            />
-            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--text-secondary)]">
-              Connected Systems Model
-            </span>
-          </div>
-          <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--text-muted)]">
-            Interactive Matrix
-          </span>
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-4">
+        <div>
+          <p className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-[var(--ll-pencil-text)]">
+            Working Blueprint · Architecture Notes
+          </p>
+          <h2 className="mt-1 font-sans text-lg font-bold tracking-tight text-[var(--ll-ink)]">
+            How Business, AI &amp; Systems Connect
+          </h2>
         </div>
+        <InkBadge variant="outline" size="sm" seed="topology-schema-badge">
+          Interactive Schema
+        </InkBadge>
+      </div>
 
-        {/* Spatial Topology Plane */}
-        <div className="editorial-grid-bg relative p-5 sm:p-6">
-          {/* Vector Signal Routing Layer (decorative, behind nodes) */}
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 400 220"
-            className="pointer-events-none absolute inset-0 hidden h-full w-full opacity-55 sm:block"
-            preserveAspectRatio="none"
-          >
-            <line
-              x1="105"
-              y1="62"
-              x2="295"
-              y2="62"
-              stroke="var(--border-strong)"
-              strokeWidth="1"
-              strokeDasharray="4 4"
-            />
-            <line
-              x1="105"
-              y1="158"
-              x2="295"
-              y2="158"
-              stroke="var(--border-strong)"
-              strokeWidth="1"
-              strokeDasharray="4 4"
-            />
-            <line
-              x1="105"
-              y1="62"
-              x2="105"
-              y2="158"
-              stroke="var(--border-strong)"
-              strokeWidth="1"
-              strokeDasharray="4 4"
-            />
-            <line
-              x1="295"
-              y1="62"
-              x2="295"
-              y2="158"
-              stroke="var(--border-strong)"
-              strokeWidth="1"
-              strokeDasharray="4 4"
-            />
-            <line
-              x1="105"
-              y1="62"
-              x2="295"
-              y2="158"
-              stroke="var(--accent-primary)"
-              strokeOpacity="0.35"
-              strokeWidth="1.25"
-            />
-            <line
-              x1="295"
-              y1="62"
-              x2="105"
-              y2="158"
-              stroke="var(--accent-warm)"
-              strokeOpacity="0.35"
-              strokeWidth="1.25"
-            />
-            {shouldAnimateSignals && (
-              <circle r="3" fill="var(--accent-primary)">
-                <animateMotion
-                  dur="5s"
-                  repeatCount="indefinite"
-                  path="M105,62 L295,62 L295,158 L105,158 Z"
-                />
-              </circle>
-            )}
-          </svg>
-
-          <div
-            role="tablist"
-            aria-label="Consulting Architecture Layers"
-            className="relative z-10 grid gap-3 sm:grid-cols-2"
-          >
-            {TOPOLOGY_NODES.map(node => {
-              const Icon = node.icon
-              const selected = node.id === activeId
-              return (
-                <button
-                  key={node.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={selected}
-                  aria-controls={`topology-panel-${node.id}`}
-                  id={`topology-tab-${node.id}`}
-                  onClick={() => setActiveId(node.id)}
-                  className={`focus-ring group flex flex-col justify-between rounded-xl border p-4 text-left transition-all ${
-                    selected
-                      ? 'border-[var(--accent-primary)] bg-[var(--surface-elevated)] shadow-sm'
-                      : 'border-[var(--border-subtle)] bg-[var(--surface)]/95 hover:border-[var(--border-strong)]'
+      {/* Connected node grid on graph paper */}
+      <div
+        role="tablist"
+        aria-label="Consulting architecture layers"
+        className="grid grid-cols-1 gap-2.5 sm:grid-cols-2"
+      >
+        {NODES.map(node => {
+          const Icon = node.icon
+          const selected = node.id === activeId
+          return (
+            <button
+              key={node.id}
+              id={`topology-tab-${node.id}`}
+              type="button"
+              role="tab"
+              aria-selected={selected}
+              aria-controls={`topology-panel-${node.id}`}
+              onClick={() => setActiveId(node.id)}
+              className={`group flex flex-col items-start rounded-md border p-3.5 text-left transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ll-focus)] ${
+                selected
+                  ? 'border-[var(--ll-ink)] bg-[var(--ll-paper)] shadow-sm -translate-y-0.5'
+                  : 'border-[var(--ll-pencil-mark)]/70 bg-[var(--ll-paper)]/75 hover:border-[var(--ll-ink)] hover:bg-[var(--ll-paper)]'
+              }`}
+            >
+              <div className="flex w-full items-center justify-between gap-2">
+                <span
+                  className={`font-mono text-[10px] font-semibold uppercase tracking-[0.16em] ${
+                    selected ? 'text-[var(--ll-orange-text)]' : 'text-[var(--ll-pencil-text)]'
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-[var(--text-muted)]">
-                      {node.index}
-                    </span>
-                    <span
-                      className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
-                        selected
-                          ? 'border-[var(--accent-primary)]/40 bg-[var(--accent-subtle)] text-[var(--accent-primary)]'
-                          : 'border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--text-secondary)]'
-                      }`}
-                    >
-                      <Icon size={16} aria-hidden="true" />
-                    </span>
-                  </div>
-                  <div className="mt-4">
-                    <p className="text-sm font-semibold tracking-[-0.01em] text-[var(--text-primary)]">
-                      {node.label}
-                    </p>
-                    <p className="mt-1.5 font-mono text-[11px] text-[var(--text-muted)]">
-                      {node.tags.join(' · ')}
-                    </p>
-                  </div>
-                </button>
-              )
-            })}
-          </div>
+                  {node.code}
+                </span>
+                <Icon
+                  size={15}
+                  aria-hidden="true"
+                  className={selected ? 'text-[var(--ll-ink-you)]' : 'text-[var(--ll-pencil-text)]'}
+                />
+              </div>
+              <p className="mt-2 font-sans text-sm font-bold leading-snug text-[var(--ll-ink)]">
+                {node.label}
+              </p>
+              <p className="mt-0.5 text-xs text-[var(--ll-pencil-text)]">{node.sublabel}</p>
+            </button>
+          )
+        })}
+      </div>
 
-          {/* Active Layer Synthesis Panel */}
-          <div
-            role="tabpanel"
-            id={`topology-panel-${activeNode.id}`}
-            aria-labelledby={`topology-tab-${activeNode.id}`}
-            className="relative z-10 mt-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] p-4 sm:p-5"
-          >
-            <div className="flex items-center justify-between gap-3">
-              <span className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--accent-primary)]">
-                Layer {activeNode.index} · {activeNode.shortLabel}
-              </span>
-              <span className="inline-flex items-center gap-1 font-mono text-[11px] text-[var(--accent-warm)]">
-                Business Value Alignment
-                <ArrowUpRight size={13} aria-hidden="true" />
-              </span>
-            </div>
-            <p className="mt-2.5 text-sm leading-6 text-[var(--text-secondary)]">
-              {activeNode.summary}
-            </p>
-          </div>
+      <InkRule variant="dashed" seed="topology-divider" className="my-4" />
+
+      {/* Active Layer Detail Slip */}
+      <Paper
+        id={`topology-panel-${activeNode.id}`}
+        stock="slip"
+        shadow="slip"
+        tilt={false}
+        seed={`topology-slip-${activeNode.id}`}
+        role="tabpanel"
+        aria-labelledby={`topology-tab-${activeNode.id}`}
+        aria-label={activeNode.label}
+        className="p-4"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--ll-ink-you)]">
+            Focus · {activeNode.label}
+          </p>
+          <span className="font-mono text-[10px] text-[var(--ll-pencil-text)]">
+            {activeNode.code}
+          </span>
         </div>
-      </motion.div>
-    </div>
+        <p className="mt-2 text-sm leading-6 text-[var(--ll-ink-soft)]">{activeNode.detail}</p>
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {activeNode.focusAreas.map(area => (
+            <InkBadge
+              key={area}
+              variant="outline"
+              size="sm"
+              seed={`topo-tag-${activeNode.id}-${area}`}
+            >
+              {area}
+            </InkBadge>
+          ))}
+        </div>
+      </Paper>
+    </Paper>
   )
 }
-

@@ -11,6 +11,18 @@ import {
 } from 'lucide-react'
 import { SiteShell } from '@/components/consulting/SiteShell'
 import { SectionHeading } from '@/components/consulting/MotionPrimitives'
+import { Paper } from '@/components/looseleaf/Paper'
+import {
+  IndexCard,
+  IndexCardContent,
+  IndexCardHeader,
+  IndexCardTitle,
+} from '@/components/looseleaf/IndexCard'
+import { InkButton } from '@/components/looseleaf/InkButton'
+import { InkBadge } from '@/components/looseleaf/InkBadge'
+import { InkRule } from '@/components/looseleaf/InkRule'
+import { Annotate } from '@/components/looseleaf/Annotate'
+import type { Accent } from '@/lib/ink/paper/props'
 import {
   ABOUT_CONTENT,
   BRAND,
@@ -28,79 +40,104 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about' },
 }
 
+const DOMAIN_FLAGS: Accent[] = ['tangerine', 'sky', 'teal', 'grass', 'lemon', 'bubblegum']
+
 export default function AboutPage() {
   return (
     <SiteShell>
       {/* 05 / ABOUT HERO & NARRATIVE */}
-      <section className="border-b border-[var(--border-subtle)]">
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-          <nav aria-label="Breadcrumb" className="mb-6 font-mono text-xs text-[var(--text-muted)]">
-            <Link href="/" className="focus-ring rounded hover:text-[var(--text-primary)]">
+      <section className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 sm:pt-12 lg:px-8">
+        <Paper
+          stock="paper"
+          tape="top"
+          tapeKind="masking"
+          tilt={false}
+          seed="about-narrative-sheet"
+          className="px-6 py-10 sm:px-10 sm:py-12"
+        >
+          <nav aria-label="Breadcrumb" className="mb-8 font-mono text-xs text-[var(--ll-pencil-text)]">
+            <Link href="/" className="hover:text-[var(--ll-ink)] hover:underline underline-offset-4">
               Home
             </Link>{' '}
-            / <span className="text-[var(--text-primary)]">About</span>
+            / <span className="font-medium text-[var(--ll-ink)]">About</span>
           </nav>
 
           <div className="grid items-start gap-12 lg:grid-cols-[0.75fr_1.25fr]">
-            <div className="lg:sticky lg:top-24">
-              <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[#0B0E13]">
-                <div className="relative aspect-[4/5] w-full">
+            <div className="lg:sticky lg:top-28">
+              <Paper
+                stock="photo"
+                tape="corner"
+                tapeKind="masking"
+                tilt={-1}
+                seed="about-portrait-frame"
+                className="p-3 sm:p-4"
+              >
+                <div className="relative aspect-[682/885] w-full overflow-hidden rounded-sm border border-[var(--ll-pencil-mark)]/30 bg-[radial-gradient(circle_at_50%_35%,var(--ll-paper)_0%,var(--ll-paper-shade)_100%)] dark:bg-[radial-gradient(circle_at_50%_35%,#2b323e_0%,#181c23_100%)]">
                   <Image
-                    src="/images/vishnuraj-original.jpg"
+                    src="/images/vishnu-portrait.png"
                     alt="Portrait of Vishnuraj Vishwakarma, AI, Business & Technology Consultant"
                     fill
                     priority
                     sizes="(max-width: 1024px) 92vw, 34vw"
-                    className="object-cover object-top"
+                    className="object-contain object-bottom pt-3"
                   />
                 </div>
-                <div className="border-t border-white/10 bg-[#0B0E13] px-5 py-4 text-[#F4F1EA]">
-                  <p className="text-sm font-semibold">{BRAND.name}</p>
-                  <p className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[#2DD4BF]">
+                <div className="pt-3.5 pb-1">
+                  <p className="font-script text-xl font-bold leading-snug text-[var(--ll-ink)]">
+                    {BRAND.name}
+                  </p>
+                  <p className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--ll-ink-you)]">
                     {BRAND.role}
                   </p>
-                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-[#B4BCC8]">
+                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-[var(--ll-pencil-text)]">
                     <MapPin size={13} aria-hidden="true" />
                     {BRAND.location}
                   </p>
                 </div>
-              </div>
+              </Paper>
 
-              <div className="mt-4 flex flex-wrap gap-2.5">
-                <a
+              <div className="mt-5 flex flex-wrap gap-2.5">
+                <InkButton
                   href={`mailto:${BRAND.email}`}
-                  className="focus-ring inline-flex min-h-[42px] flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--border-strong)] bg-[var(--surface)] px-4 text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
+                  variant="outline"
+                  size="sm"
+                  seed="about-email-btn"
+                  className="flex-1"
                 >
                   <Mail size={14} aria-hidden="true" />
                   Email
-                </a>
-                <a
+                </InkButton>
+                <InkButton
                   href={BRAND.linkedinUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="focus-ring inline-flex min-h-[42px] flex-1 items-center justify-center gap-1.5 rounded-lg border border-[var(--border-strong)] bg-[var(--surface)] px-4 text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
+                  external
+                  variant="outline"
+                  size="sm"
+                  seed="about-linkedin-btn"
+                  className="flex-1"
                 >
                   LinkedIn
                   <ArrowUpRight size={14} aria-hidden="true" />
-                </a>
+                </InkButton>
               </div>
             </div>
 
             <div>
-              <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent-primary)]">
+              <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-[var(--ll-ink-you)]">
                 {ABOUT_CONTENT.sectionNumber} / {ABOUT_CONTENT.eyebrow}
               </p>
-              <h1 className="mt-4 text-[clamp(2.1rem,4.4vw,3.35rem)] font-bold leading-[1.08] tracking-[-0.03em] text-[var(--text-primary)]">
-                {ABOUT_CONTENT.title}
+              <h1 className="mt-4 break-words font-sans text-[clamp(1.7rem,4.4vw,3.25rem)] font-bold leading-[1.08] tracking-tight text-[var(--ll-ink)]">
+                <Annotate type="underline" kind="single" tone="marker" seed="about-h1-mark">
+                  {ABOUT_CONTENT.title}
+                </Annotate>
               </h1>
 
-              <div className="mt-7 space-y-5 text-base leading-8 text-[var(--text-secondary)] sm:text-[1.0625rem]">
+              <div className="mt-7 space-y-5 text-base leading-8 text-[var(--ll-ink-soft)] sm:text-[1.0625rem]">
                 {ABOUT_CONTENT.paragraphs.map((paragraph, idx) => (
                   <p
                     key={paragraph}
                     className={
                       idx === 0 || idx === ABOUT_CONTENT.paragraphs.length - 1
-                        ? 'font-medium text-[var(--text-primary)]'
+                        ? 'font-medium text-[var(--ll-ink)]'
                         : undefined
                     }
                   >
@@ -109,44 +146,53 @@ export default function AboutPage() {
                 ))}
               </div>
 
+              <InkRule variant="dashed" seed="about-edu-rule" className="my-9" />
+
               {/* Academic Credentials */}
-              <div id="education" className="mt-10 scroll-mt-24">
-                <div className="flex items-center gap-2 text-[var(--accent-primary)]">
+              <div id="education" className="scroll-mt-28">
+                <div className="flex items-center gap-2 text-[var(--ll-ink-you)]">
                   <GraduationCap size={18} aria-hidden="true" />
                   <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.18em]">
                     Academic Qualifications
                   </h2>
                 </div>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  {ABOUT_CONTENT.education.map(edu => (
-                    <article
+                <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                  {ABOUT_CONTENT.education.map((edu, idx) => (
+                    <IndexCard
                       key={edu.degree}
-                      className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] p-5"
+                      flag={idx === 0 ? 'sky' : 'tangerine'}
+                      tilt={false}
+                      seed={`about-edu-${edu.degree}`}
+                      className="h-full"
                     >
-                      <span className="inline-block rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--accent-primary)]">
-                        {edu.status}
-                      </span>
-                      <h3 className="mt-3 text-base font-semibold leading-snug text-[var(--text-primary)]">
-                        {edu.degree}
-                      </h3>
-                      <p className="mt-2 text-sm leading-6 text-[var(--text-secondary)]">
-                        {edu.focus}
-                      </p>
-                    </article>
+                      <IndexCardHeader>
+                        <InkBadge variant="outline" size="sm" seed={`edu-status-${idx}`}>
+                          {edu.status}
+                        </InkBadge>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ll-pencil-text)]">
+                          Academic
+                        </span>
+                      </IndexCardHeader>
+                      <IndexCardContent>
+                        <IndexCardTitle className="font-sans text-base font-bold leading-snug">
+                          {edu.degree}
+                        </IndexCardTitle>
+                        <p className="mt-2.5 text-sm leading-6 text-[var(--ll-ink-soft)]">
+                          {edu.focus}
+                        </p>
+                      </IndexCardContent>
+                    </IndexCard>
                   ))}
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </Paper>
       </section>
 
       {/* 06 / BUSINESS & TECHNOLOGY EXPERTISE */}
-      <section
-        id="expertise"
-        className="scroll-mt-20 border-b border-[var(--border-subtle)] bg-[var(--bg-secondary)]/50"
-      >
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section id="expertise" className="scroll-mt-24 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <Paper stock="slip" tilt={false} seed="about-expertise-sheet" className="px-6 py-10 sm:px-10 sm:py-12">
           <SectionHeading
             number={EXPERTISE_CONTENT.sectionNumber}
             eyebrow={EXPERTISE_CONTENT.eyebrow}
@@ -154,37 +200,53 @@ export default function AboutPage() {
           />
 
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {EXPERTISE_CONTENT.domains.map(domain => (
-              <article
+            {EXPERTISE_CONTENT.domains.map((domain, idx) => (
+              <IndexCard
                 key={domain.id}
-                className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6"
+                flag={DOMAIN_FLAGS[idx % DOMAIN_FLAGS.length]}
+                tilt={false}
+                seed={`about-domain-${domain.id}`}
               >
-                <h3 className="text-base font-semibold tracking-[-0.01em] text-[var(--text-primary)]">
-                  {domain.title}
-                </h3>
-                <ul className="mt-4 space-y-2 text-sm text-[var(--text-secondary)]">
-                  {domain.capabilities.map(capability => (
-                    <li key={capability} className="flex items-start gap-2.5">
-                      <span
-                        className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-primary)]"
-                        aria-hidden="true"
-                      />
-                      <span>{capability}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
+                <IndexCardHeader>
+                  <span className="font-mono text-[11px] font-semibold text-[var(--ll-ink-you)]">
+                    0{idx + 1}
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ll-pencil-text)]">
+                    Domain
+                  </span>
+                </IndexCardHeader>
+                <IndexCardContent>
+                  <IndexCardTitle className="font-sans text-lg font-bold tracking-tight">
+                    {domain.title}
+                  </IndexCardTitle>
+                  <ul className="mt-3.5 space-y-2 text-sm text-[var(--ll-ink-soft)]">
+                    {domain.capabilities.map(capability => (
+                      <li key={capability} className="flex items-start gap-2.5">
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ll-ink-you)]"
+                          aria-hidden="true"
+                        />
+                        <span>{capability}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </IndexCardContent>
+              </IndexCard>
             ))}
           </div>
-        </div>
+        </Paper>
       </section>
 
       {/* 07 / FINANCE & STRATEGY */}
-      <section
-        id="finance-strategy"
-        className="scroll-mt-20 border-b border-[var(--border-subtle)]"
-      >
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section id="finance-strategy" className="scroll-mt-24 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <Paper
+          stock="ledger"
+          rules="ledger"
+          tape="corner"
+          tilt={false}
+          seed="about-finance-ledger"
+          className="px-6 py-10 sm:px-10 sm:py-12"
+        >
           <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
             <div>
               <SectionHeading
@@ -193,177 +255,198 @@ export default function AboutPage() {
                 title={FINANCE_STRATEGY_CONTENT.title}
                 lead={FINANCE_STRATEGY_CONTENT.lead}
               />
-              <div className="mt-5 space-y-4 text-base leading-7 text-[var(--text-secondary)]">
+              <div className="mt-5 space-y-4 text-base leading-7 text-[var(--ll-ink-soft)]">
                 {FINANCE_STRATEGY_CONTENT.paragraphs.map(text => (
                   <p key={text}>{text}</p>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-8">
-              <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-[var(--accent-primary)]">
+            <Paper
+              stock="paper"
+              fastener="clip"
+              tilt={false}
+              seed="about-finance-focus-card"
+              className="p-6 sm:p-7"
+            >
+              <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-[var(--ll-ink-you)]">
                 Areas of Focus
               </p>
-              <ul className="mt-5 divide-y divide-[var(--border-subtle)]">
+              <InkRule variant="dashed" seed="finance-focus-rule" className="my-4" />
+              <ul className="space-y-3">
                 {FINANCE_STRATEGY_CONTENT.areasOfFocus.map((area, idx) => (
                   <li
                     key={area}
-                    className="flex items-center gap-4 py-3.5 text-sm font-medium text-[var(--text-primary)]"
+                    className="flex items-center gap-4 border-b border-dashed border-[var(--ll-pencil-mark)]/40 pb-2.5 text-sm font-medium text-[var(--ll-ink)] last:border-none last:pb-0"
                   >
-                    <span className="font-mono text-xs text-[var(--accent-warm)]">
+                    <span className="font-mono text-xs font-bold text-[var(--ll-orange-text)]">
                       0{idx + 1}
                     </span>
                     <span>{area}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </Paper>
           </div>
-        </div>
+        </Paper>
       </section>
 
       {/* 10 / PROFESSIONAL EXPERIENCE */}
-      <section
-        id="experience"
-        className="scroll-mt-20 border-b border-[var(--border-subtle)] bg-[var(--bg-secondary)]/50"
-      >
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section id="experience" className="scroll-mt-24 mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <Paper stock="paper" tilt={false} seed="about-experience-wrap" className="px-6 py-10 sm:px-10 sm:py-12">
           <SectionHeading
             number={EXPERIENCE_CONTENT.sectionNumber}
             eyebrow={EXPERIENCE_CONTENT.eyebrow}
             title={EXPERIENCE_CONTENT.title}
           />
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {EXPERIENCE_CONTENT.roles.map((role, idx) => (
-              <article
+              <Paper
                 key={role.id}
-                className="flex flex-col justify-between rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 sm:p-7"
+                stock="slip"
+                tilt={false}
+                seed={`about-role-${role.id}`}
+                className="flex flex-col justify-between p-6"
               >
                 <div>
                   <div className="flex items-start justify-between gap-3">
-                    <span className="font-mono text-xs text-[var(--text-muted)]">
+                    <span className="font-mono text-xs text-[var(--ll-pencil-text)]">
                       0{idx + 1}
                     </span>
                     {role.externalUrl && (
-                      <a
+                      <InkButton
                         href={role.externalUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`External profile for ${role.organization}`}
-                        className="focus-ring inline-flex items-center gap-1 rounded text-xs font-medium text-[var(--accent-primary)] hover:underline"
+                        external
+                        variant="link"
+                        size="xs"
+                        seed={`role-ext-${role.id}`}
+                        className="px-0"
                       >
                         Reference
                         <ArrowUpRight size={13} aria-hidden="true" />
-                      </a>
+                      </InkButton>
                     )}
                   </div>
-                  <h3 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-[var(--text-primary)]">
+                  <h3 className="mt-2 font-sans text-xl font-bold tracking-tight text-[var(--ll-ink)]">
                     {role.organization}
                   </h3>
-                  <p className="mt-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-[var(--accent-primary)]">
+                  <p className="mt-1 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ll-ink-you)]">
                     {role.role}
                   </p>
-                  <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)]">
+                  <p className="mt-3 text-sm leading-6 text-[var(--ll-ink-soft)]">
                     {role.description}
                   </p>
                 </div>
-                <p className="mt-5 border-t border-[var(--border-subtle)] pt-3.5 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--text-muted)]">
-                  {role.contextNote}
-                </p>
-              </article>
+                <div className="mt-5 border-t border-dashed border-[var(--ll-pencil-mark)]/45 pt-3.5">
+                  <InkBadge variant="outline" size="sm" seed={`role-ctx-${role.id}`}>
+                    {role.contextNote}
+                  </InkBadge>
+                </div>
+              </Paper>
             ))}
           </div>
-        </div>
+        </Paper>
       </section>
 
       {/* 08 & 11 / PROOF, RECOGNITION & CURRENT FOCUS */}
-      <section id="proof" className="scroll-mt-20 border-b border-[var(--border-subtle)]">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <SectionHeading
-                number={PROOF_CONTENT.sectionNumber}
-                eyebrow={PROOF_CONTENT.eyebrow}
-                title={PROOF_CONTENT.title}
-                description={PROOF_CONTENT.intro}
-              />
+      <section id="proof" className="scroll-mt-24 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <Paper stock="paper" tilt={false} seed="about-proof-sheet" className="p-6 sm:p-8">
+            <SectionHeading
+              number={PROOF_CONTENT.sectionNumber}
+              eyebrow={PROOF_CONTENT.eyebrow}
+              title={PROOF_CONTENT.title}
+              description={PROOF_CONTENT.intro}
+            />
 
-              <div className="mt-7 space-y-3">
-                {PROOF_CONTENT.evidenceCategories.map(item => (
-                  <Link
-                    key={item.title}
-                    href={item.href}
-                    className="focus-ring group block rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] p-4 transition-colors hover:border-[var(--accent-primary)]"
-                  >
+            <div className="mt-7 space-y-3">
+              {PROOF_CONTENT.evidenceCategories.map(item => (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  className="group block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ll-focus)]"
+                >
+                  <Paper stock="slip" tilt={false} seed={`proof-item-${item.title}`} className="p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <p className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)]">
+                        <p className="font-sans text-sm font-bold text-[var(--ll-ink)] group-hover:text-[var(--ll-link)]">
                           {item.title}
                         </p>
-                        <p className="mt-1 text-xs leading-5 text-[var(--text-secondary)]">
+                        <p className="mt-1 text-xs leading-5 text-[var(--ll-ink-soft)]">
                           {item.detail}
                         </p>
                       </div>
                       <ArrowRight
                         size={15}
                         aria-hidden="true"
-                        className="mt-1 shrink-0 text-[var(--text-muted)] group-hover:text-[var(--accent-primary)]"
+                        className="mt-1 shrink-0 text-[var(--ll-pencil-text)] group-hover:text-[var(--ll-link)]"
                       />
                     </div>
-                  </Link>
+                  </Paper>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-6">
+              <InkButton
+                href="/certificates"
+                variant="outline"
+                size="default"
+                seed="about-certs-btn"
+              >
+                <Award size={15} aria-hidden="true" className="text-[var(--ll-ink-you)]" />
+                Open Credentials Repository
+              </InkButton>
+            </div>
+          </Paper>
+
+          <Paper
+            stock="pad"
+            rules="pad"
+            tape="top"
+            tilt={false}
+            seed="about-focus-pad"
+            className="flex flex-col justify-between p-6 sm:p-8"
+          >
+            <div>
+              <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-[var(--ll-ink-you)]">
+                {CURRENT_FOCUS_CONTENT.sectionNumber} / {CURRENT_FOCUS_CONTENT.eyebrow}
+              </p>
+              <h2 className="mt-3 font-sans text-2xl font-bold tracking-tight text-[var(--ll-ink)] sm:text-3xl">
+                {CURRENT_FOCUS_CONTENT.title}
+              </h2>
+              <div className="mt-5 space-y-4 text-base leading-7 text-[var(--ll-ink-soft)]">
+                {CURRENT_FOCUS_CONTENT.paragraphs.map((p, idx) => (
+                  <p
+                    key={p}
+                    className={
+                      idx === CURRENT_FOCUS_CONTENT.paragraphs.length - 1
+                        ? 'font-bold text-[var(--ll-ink)]'
+                        : undefined
+                    }
+                  >
+                    {p}
+                  </p>
                 ))}
               </div>
-
-              <div className="mt-5 flex items-center gap-3">
-                <Link
-                  href="/certificates"
-                  className="focus-ring inline-flex min-h-[42px] items-center gap-2 rounded-lg border border-[var(--border-strong)] bg-[var(--surface)] px-4 text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
-                >
-                  <Award size={15} aria-hidden="true" className="text-[var(--accent-primary)]" />
-                  Open Credentials Repository
-                </Link>
-              </div>
             </div>
 
-            <div className="flex flex-col justify-between rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] p-7 sm:p-9">
-              <div>
-                <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-[var(--accent-primary)]">
-                  {CURRENT_FOCUS_CONTENT.sectionNumber} / {CURRENT_FOCUS_CONTENT.eyebrow}
-                </p>
-                <h2 className="mt-3 text-2xl font-semibold tracking-[-0.02em] text-[var(--text-primary)] sm:text-3xl">
-                  {CURRENT_FOCUS_CONTENT.title}
-                </h2>
-                <div className="mt-5 space-y-4 text-base leading-7 text-[var(--text-secondary)]">
-                  {CURRENT_FOCUS_CONTENT.paragraphs.map((p, idx) => (
-                    <p
-                      key={p}
-                      className={
-                        idx === CURRENT_FOCUS_CONTENT.paragraphs.length - 1
-                          ? 'font-medium text-[var(--text-primary)]'
-                          : undefined
-                      }
-                    >
-                      {p}
-                    </p>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mt-8 border-t border-[var(--border-subtle)] pt-6">
-                <Link
-                  href="/contact"
-                  className="focus-ring inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-lg bg-[var(--accent-primary)] px-5 py-3 text-sm font-semibold text-[var(--accent-foreground)] transition-colors hover:bg-[var(--accent-primary-hover)]"
-                >
-                  Discuss Your Business Challenge
-                  <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              </div>
+            <div className="mt-8 border-t border-dashed border-[var(--ll-pencil-mark)]/50 pt-6">
+              <InkButton
+                href="/contact"
+                variant="default"
+                size="default"
+                seed="about-focus-cta"
+                className="w-full"
+              >
+                Discuss Your Business Challenge
+                <ArrowRight size={16} aria-hidden="true" />
+              </InkButton>
             </div>
-          </div>
+          </Paper>
         </div>
       </section>
     </SiteShell>
   )
 }
-

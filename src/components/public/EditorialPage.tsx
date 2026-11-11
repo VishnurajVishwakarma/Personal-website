@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { SiteShell } from '@/components/consulting/SiteShell'
+import { Paper } from '@/components/looseleaf/Paper'
+import { InkRule } from '@/components/looseleaf/InkRule'
 
 export function EditorialPage({
   eyebrow,
@@ -15,25 +17,39 @@ export function EditorialPage({
 }) {
   return (
     <SiteShell>
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-        <Link
-          href="/"
-          className="focus-ring inline-flex min-h-[44px] items-center gap-2 rounded text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--accent-primary)]"
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+        <Paper
+          stock="paper"
+          tape="both"
+          tapeKind="masking"
+          tilt={false}
+          seed={`editorial-header-${eyebrow}`}
+          className="px-6 py-9 sm:px-10 sm:py-12"
         >
-          <ArrowLeft size={16} aria-hidden="true" /> Vishnuraj Vishwakarma
-        </Link>
-        <header className="max-w-3xl py-10">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent-primary)]">
-            {eyebrow}
-          </p>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
-            {title}
-          </h1>
-          <p className="mt-5 text-base leading-7 text-[var(--text-secondary)] sm:text-lg">
-            {intro}
-          </p>
-        </header>
-        {children}
+          <Link
+            href="/"
+            className="inline-flex min-h-[40px] items-center gap-2 font-mono text-xs font-medium text-[var(--ll-ink-soft)] underline-offset-4 hover:text-[var(--ll-link)] hover:underline"
+          >
+            <ArrowLeft size={15} aria-hidden="true" />
+            Vishnuraj Vishwakarma
+          </Link>
+
+          <header className="max-w-3xl pt-7">
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.22em] text-[var(--ll-ink-you)]">
+              {eyebrow}
+            </p>
+            <h1 className="mt-4 font-sans text-4xl font-bold tracking-tight text-[var(--ll-ink)] sm:text-5xl">
+              {title}
+            </h1>
+            <p className="mt-5 text-base leading-7 text-[var(--ll-ink-soft)] sm:text-lg">
+              {intro}
+            </p>
+          </header>
+
+          <InkRule variant="pencil" seed={`editorial-rule-${eyebrow}`} className="my-8" />
+
+          {children}
+        </Paper>
       </div>
     </SiteShell>
   )
@@ -48,51 +64,58 @@ export function EditorialList({
 }) {
   if (!items.length) {
     return (
-      <div className="max-w-2xl rounded-xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 text-base leading-7 text-[var(--text-secondary)]">
+      <Paper
+        stock="slip"
+        tilt={false}
+        seed="editorial-empty-slip"
+        className="max-w-2xl p-6 text-base leading-7 text-[var(--ll-ink-soft)]"
+      >
         This collection is intentionally selective. New publications and analytical notes will appear here once ready for release.
-      </div>
+      </Paper>
     )
   }
 
   return (
-    <div className="divide-y divide-[var(--border-subtle)] border-y border-[var(--border-subtle)]">
+    <div className="space-y-4">
       {items.map(item => {
         const content = (
-          <>
+          <div className="flex items-start justify-between gap-6">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--accent-primary)]">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-[var(--ll-ink-you)]">
                 {item.category || item.researchArea || item.publication || 'Publication'}{' '}
                 {item.publishedAt || item.year ? `· ${item.publishedAt || item.year}` : ''}
               </p>
-              <h2 className="mt-2.5 text-2xl font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)]">
+              <h2 className="mt-2 font-sans text-2xl font-bold text-[var(--ll-ink)] group-hover:text-[var(--ll-link)]">
                 {item.title}
               </h2>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-[var(--text-secondary)]">
+              <p className="mt-2.5 max-w-3xl text-sm leading-7 text-[var(--ll-ink-soft)]">
                 {item.description || item.excerpt || item.summary}
               </p>
             </div>
             {basePath && (
               <ArrowUpRight
                 aria-hidden="true"
-                className="shrink-0 text-[var(--text-muted)] group-hover:text-[var(--accent-primary)]"
+                className="shrink-0 text-[var(--ll-pencil-text)] group-hover:text-[var(--ll-link)]"
               />
             )}
-          </>
+          </div>
         )
+
         return basePath ? (
           <Link
             key={item.id}
             href={`${basePath}/${item.slug}`}
-            className="focus-ring group flex items-start justify-between gap-6 py-7"
+            className="group block rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ll-focus)]"
           >
-            {content}
+            <Paper stock="slip" tilt={false} seed={`ed-item-${item.id}`} className="p-5 sm:p-6">
+              {content}
+            </Paper>
           </Link>
         ) : (
-          <article
-            key={item.id}
-            className="flex items-start justify-between gap-6 py-7"
-          >
-            {content}
+          <article key={item.id}>
+            <Paper stock="slip" tilt={false} seed={`ed-item-${item.id}`} className="p-5 sm:p-6">
+              {content}
+            </Paper>
           </article>
         )
       })}

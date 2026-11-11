@@ -2,74 +2,638 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Kevin Sans";
+  src: url("/fonts/KevinSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kevin Sans";
+  src: url("/fonts/KevinSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kevin Sans Hand";
+  src: url("/fonts/KevinSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 92%;
+  ascent-override: 116%;
+  descent-override: 54%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Kevin Sans Hand";
+  src: url("/fonts/KevinSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 92%;
+  ascent-override: 116%;
+  descent-override: 54%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Kevin Sans Script";
+  src: url("/fonts/KevinSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 86%;
+  ascent-override: 120%;
+  descent-override: 42%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Kevin Sans Script";
+  src: url("/fonts/KevinSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 86%;
+  ascent-override: 120%;
+  descent-override: 42%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Kevin Sans Type";
+  src: url("/fonts/KevinSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 85%;
+  ascent-override: 88%;
+  descent-override: 36%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Kevin Sans Type";
+  src: url("/fonts/KevinSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 85%;
+  ascent-override: 88%;
+  descent-override: 36%;
+  line-gap-override: 0%;
+}
+
 :root {
   color-scheme: light;
-  --bg-primary: #FAF8F5;
-  --bg-secondary: #F2EFE9;
-  --surface: #FFFFFF;
-  --surface-elevated: #FCFBF9;
-  --text-primary: #11151C;
-  --text-secondary: #414955;
-  --text-muted: #5C6573;
-  --accent-primary: #0B4F6C;
-  --accent-primary-hover: #083B52;
-  --accent-foreground: #FFFFFF;
-  --accent-subtle: rgba(11, 79, 108, 0.08);
-  --accent-warm: #876527;
-  --border-subtle: rgba(17, 21, 28, 0.10);
-  --border-strong: rgba(17, 21, 28, 0.22);
-  --grid-line: rgba(17, 21, 28, 0.045);
+
+  /* Looseleaf Palette Tokens — Notebook Studio */
+  --ll-desk: #a8c8bb;
+  --ll-desk-deep: #93b4a7;
+  --ll-paper: #f8f5ee;
+  --ll-paper-shade: #ece6da;
+  --ll-slip: #fbf8f1;
+  --ll-card: #fbf6e9;
+  --ll-graph: #f4f7ef;
+  --ll-kraft: #dcc8a3;
+  --ll-check: #dfe9d8;
+  --ll-pad: #f8f2de;
+  --ll-photo: #fffdf6;
+
+  --ll-rule-blue: #8fb0d4;
+  --ll-rule-red: #d9776a;
+  --ll-pad-rule: #b2c3dc;
+  --ll-check-rule: #7fa37c;
+
+  --ll-sticky-yellow: #f7e38a;
+  --ll-sticky-green: #cfe6a8;
+  --ll-sticky-orange: #f7c08e;
+  --ll-sticky-pink: #f6b8b0;
+  --ll-sticky-blue: #bcd8f0;
+
+  --ll-ink: #2a2420;
+  --ll-ink-soft: #4a423b;
+  --ll-ink-muted: #4a433c;
+  --ll-ink-you: #2c4f9e;
+  --ll-pencil: #6b6660;
+  --ll-pencil-text: #5a554e;
+  --ll-pencil-mark: #8e887f;
+  --ll-red: #c2412d;
+  --ll-green: #3b7a4b;
+  --ll-marker: #df6b3c;
+  --ll-orange-text: #a4502a;
+  --ll-hi: #f8dc4c;
+  --ll-hi-deep: #a87f0c;
+  --ll-focus: #2c4f9e;
+  --ll-link: #2c4f9e;
+  --ll-link-hover: #1f3b7a;
+  --ll-check-ink: #2f6b45;
+  --ll-check-no: #b23a28;
+
+  --ll-tomato: #e8483a;
+  --ll-tangerine: #f59a2f;
+  --ll-lemon: #fbd63a;
+  --ll-grass: #5db85c;
+  --ll-teal: #2fb1a3;
+  --ll-sky: #4aa8e8;
+  --ll-grape: #8f6fd6;
+  --ll-bubblegum: #f38bb8;
+
+  --ll-tape: rgb(246 244 236 / 0.56);
+  --ll-tape-edge: rgb(140 135 120 / 0.35);
+  --ll-wet-ink-from: #15110e;
+  --ll-shade: 58 44 30;
+
+  --ll-line: var(--ll-pencil-mark);
+  --ll-line-soft: color-mix(in srgb, var(--ll-pencil-mark) 55%, transparent);
+  --ll-input-ink: var(--ll-ink-you);
+  --ll-caret: var(--ll-ink-you);
+  --ll-placeholder: var(--ll-pencil-text);
+  --ll-hi-select: color-mix(in srgb, var(--ll-hi) 62%, transparent);
+  --ll-selection-text: var(--ll-ink);
+  --ll-riso: var(--ll-marker);
+  --ll-stamp-fill: color-mix(in srgb, var(--ll-marker) 42%, transparent);
+  --ll-stamp-fill-red: color-mix(in srgb, var(--ll-red) 28%, transparent);
+  --ll-stamp-fill-green: color-mix(in srgb, var(--ll-green) 24%, transparent);
+
+  /* Ink & Motion Knobs */
+  --ll-wobble: 0.72;
+  --ll-stroke-fine: 1.5;
+  --ll-stroke-brush: 2.8;
+  --ll-bleed: 5;
+  --ll-bleed-loop: 9;
+  --ll-bleed-focus: 9;
+  --ll-misreg-sm: 2.6;
+  --ll-misreg-md: 3.8;
+  --ll-misreg-lg: 5;
+  --ll-misreg-k: 0.85;
+  --ll-jitter-k: 0.7;
+  --ll-tilt-max: 1.5deg;
+  --ll-tilt-turn: 0.5deg;
+  --ll-hover-tilt: -0.7deg;
+  --ll-hover-misreg: 0.3;
+  --ll-press-misreg: -0.7;
+  --ll-press-sink: 1px;
+  --ll-shadow-k: 1;
+  --ll-grain: 1;
+  --ll-blend: multiply;
+  --ll-sheet-radius: 2px;
+  --ll-peel-angle: -12deg;
+  --ll-wipe-r: 100%;
+  --ll-wipe-l: -4%;
+  --ll-draw-delay: 0s;
+  --ll-motion: 1;
+
+  --ll-z-shadow: -2;
+  --ll-z-sheet: -1;
+  --ll-z-ink: 1;
+  --ll-z-prop: 3;
+  --ll-z-raised: 8;
+
+  --ll-dur-press: calc(0.09s * var(--ll-motion));
+  --ll-dur-hover: calc(0.12s * var(--ll-motion));
+  --ll-dur-fade: calc(0.15s * var(--ll-motion));
+  --ll-dur-pop: calc(0.18s * var(--ll-motion));
+  --ll-dur-sheet: calc(0.3s * var(--ll-motion));
+  --ll-dur-draw: calc(0.6s * var(--ll-motion));
+
+  --ll-ease-out: ease-out;
+  --ll-ease-settle: cubic-bezier(0.2, 0.9, 0.25, 1.12);
+  --ll-ease-pop: cubic-bezier(0.2, 0.9, 0.3, 1.15);
+
+  --ll-shadow-hair: 0 1px 1.5px rgb(var(--ll-shade) / calc(0.16 * var(--ll-shadow-k)));
+  --ll-shadow-loose: 0 1px 2px rgb(var(--ll-shade) / calc(0.12 * var(--ll-shadow-k))), 0 6px 16px -2px rgb(var(--ll-shade) / calc(0.12 * var(--ll-shadow-k)));
+  --ll-shadow-lift: 0 1px 1.5px rgb(var(--ll-shade) / calc(0.2 * var(--ll-shadow-k))), 0 7px 16px -4px rgb(var(--ll-shade) / calc(0.2 * var(--ll-shadow-k)));
+  --ll-shadow-slip: 0 1px 1px rgb(var(--ll-shade) / calc(0.2 * var(--ll-shadow-k))), 0 4px 8px -3px rgb(var(--ll-shade) / calc(0.2 * var(--ll-shadow-k)));
+  --ll-shadow-card: 0 1px 1.5px rgb(var(--ll-shade) / calc(0.2 * var(--ll-shadow-k))), 0 6px 11px -5px rgb(var(--ll-shade) / calc(0.24 * var(--ll-shadow-k)));
+  --ll-shadow-pad: 0 1px 1.5px rgb(var(--ll-shade) / calc(0.18 * var(--ll-shadow-k))), 0 10px 20px -8px rgb(var(--ll-shade) / calc(0.22 * var(--ll-shadow-k)));
+  --ll-shadow-check: 0 1px 1.5px rgb(var(--ll-shade) / calc(0.22 * var(--ll-shadow-k))), 0 6px 12px -5px rgb(var(--ll-shade) / calc(0.24 * var(--ll-shadow-k)));
+  --ll-shadow-paper: 0 1px 1.5px rgb(var(--ll-shade) / calc(0.2 * var(--ll-shadow-k))), 0 2px 5px -1px rgb(var(--ll-shade) / calc(0.1 * var(--ll-shadow-k))), 0 12px 22px -8px rgb(var(--ll-shade) / calc(0.2 * var(--ll-shadow-k)));
+  --ll-shadow-sticky: 0 1px 1px rgb(var(--ll-shade) / calc(0.2 * var(--ll-shadow-k))), 0 9px 10px -7px rgb(var(--ll-shade) / calc(0.34 * var(--ll-shadow-k)));
+  --ll-drop-sheet: drop-shadow(0 1px 0.75px rgb(var(--ll-shade) / calc(0.22 * var(--ll-shadow-k)))) drop-shadow(0 8px 8px rgb(var(--ll-shade) / calc(0.14 * var(--ll-shadow-k))));
+  --ll-drop-sticker: drop-shadow(0 1px 0.6px rgb(var(--ll-shade) / calc(0.26 * var(--ll-shadow-k)))) drop-shadow(0 3px 3px rgb(var(--ll-shade) / calc(0.14 * var(--ll-shadow-k))));
+
+  --ll-paper-light: linear-gradient(135deg, rgb(255 255 255 / 0.38), rgb(255 255 255 / 0) 42%, rgb(var(--ll-shade) / calc(0.035 * var(--ll-shadow-k))));
+  --ll-desk-vignette: radial-gradient(ellipse 120% 100% at 50% 40%, transparent 60%, rgb(var(--ll-shade) / calc(0.06 * var(--ll-shadow-k))));
+
+  --ll-tex-relief: none;
+  --ll-tex-slip: none;
+  --ll-tex-fibre: none;
+  --ll-tex-cloud: none;
+  --ll-tex-mottle: none;
+  --ll-tex-linen: none;
+  --ll-tex-kraft: none;
+
+  /* App Semantic Aliases */
+  --bg-primary: var(--ll-desk);
+  --bg-secondary: var(--ll-paper-shade);
+  --surface: var(--ll-paper);
+  --surface-elevated: var(--ll-slip);
+  --text-primary: var(--ll-ink);
+  --text-secondary: var(--ll-ink-soft);
+  --text-muted: var(--ll-pencil-text);
+  --accent-primary: var(--ll-ink-you);
+  --accent-primary-hover: var(--ll-link-hover);
+  --accent-foreground: #fbf8f1;
+  --accent-subtle: color-mix(in srgb, var(--ll-hi) 42%, var(--ll-paper));
+  --accent-warm: var(--ll-orange-text);
+  --border-subtle: color-mix(in srgb, var(--ll-pencil-mark) 45%, transparent);
+  --border-strong: var(--ll-pencil-mark);
+  --grid-line: color-mix(in srgb, var(--ll-check-rule) 28%, transparent);
 }
 
 .dark {
   color-scheme: dark;
-  --bg-primary: #0B0E13;
-  --bg-secondary: #10141B;
-  --surface: #141922;
-  --surface-elevated: #1A212D;
-  --text-primary: #F4F1EA;
-  --text-secondary: #B4BCC8;
-  --text-muted: #8B95A5;
-  --accent-primary: #2DD4BF;
-  --accent-primary-hover: #5EEAD4;
-  --accent-foreground: #071318;
-  --accent-subtle: rgba(45, 212, 191, 0.10);
-  --accent-warm: #D2B475;
-  --border-subtle: rgba(244, 241, 234, 0.10);
-  --border-strong: rgba(244, 241, 234, 0.22);
-  --grid-line: rgba(244, 241, 234, 0.04);
+
+  /* Looseleaf Night Studio Material System (based on Looseleaf code-block dark palette) */
+  --ll-desk: #171b22;
+  --ll-desk-deep: #11151b;
+  --ll-paper: #232831;
+  --ll-paper-shade: #1c2028;
+  --ll-slip: #282e39;
+  --ll-card: #262b35;
+  --ll-graph: #1f272a;
+  --ll-kraft: #332c24;
+  --ll-check: #1f2924;
+  --ll-pad: #292720;
+  --ll-photo: #2c313c;
+
+  --ll-rule-blue: #4c6b94;
+  --ll-rule-red: #8e4b45;
+  --ll-pad-rule: #465b7d;
+  --ll-check-rule: #466656;
+
+  --ll-sticky-yellow: #3b351f;
+  --ll-sticky-green: #243628;
+  --ll-sticky-orange: #3d2c20;
+  --ll-sticky-pink: #3c2529;
+  --ll-sticky-blue: #203142;
+
+  --ll-ink: #ece6d9;
+  --ll-ink-soft: #d9d2c3;
+  --ll-ink-muted: #c2bcb0;
+  --ll-ink-you: #8fc1f7;
+  --ll-pencil: #a3a6ad;
+  --ll-pencil-text: #a9adb5;
+  --ll-pencil-mark: #707582;
+  --ll-red: #f6957d;
+  --ll-green: #9bd485;
+  --ll-marker: #f6957d;
+  --ll-orange-text: #f7c370;
+  --ll-hi: #8c7026;
+  --ll-hi-deep: #f7c370;
+  --ll-focus: #8fc1f7;
+  --ll-link: #8fc1f7;
+  --ll-link-hover: #b6d8fb;
+  --ll-check-ink: #9bd485;
+  --ll-check-no: #f6957d;
+
+  --ll-tomato: #f6957d;
+  --ll-tangerine: #f7c370;
+  --ll-lemon: #f1d27a;
+  --ll-grass: #9bd485;
+  --ll-teal: #80d6c6;
+  --ll-sky: #8fc1f7;
+  --ll-grape: #b99ef0;
+  --ll-bubblegum: #f29ec4;
+
+  --ll-tape: rgb(236 230 217 / 0.16);
+  --ll-tape-edge: rgb(236 230 217 / 0.28);
+  --ll-wet-ink-from: #0d0f14;
+  --ll-shade: 4 6 10;
+
+  --ll-shadow-k: 2.1;
+  --ll-blend: normal;
+  --ll-paper-light: linear-gradient(155deg, rgb(255 255 255 / 0.025), rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.14));
+  --ll-desk-vignette: radial-gradient(ellipse 120% 100% at 50% 40%, transparent 55%, rgb(0 0 0 / 0.34));
+  --ll-veil: 68%;
+  --ll-hi-select: rgb(247 195 112 / 0.28);
+  --ll-stamp-fill: rgb(246 149 125 / 0.35);
+
+  --bg-primary: var(--ll-desk);
+  --bg-secondary: var(--ll-paper-shade);
+  --surface: var(--ll-paper);
+  --surface-elevated: var(--ll-slip);
+  --text-primary: var(--ll-ink);
+  --text-secondary: var(--ll-ink-soft);
+  --text-muted: var(--ll-pencil-text);
+  --accent-primary: var(--ll-ink-you);
+  --accent-primary-hover: var(--ll-link-hover);
+  --accent-foreground: #14181f;
+  --accent-subtle: rgb(143 193 247 / 0.14);
+  --accent-warm: var(--ll-orange-text);
+  --border-subtle: rgb(112 117 130 / 0.42);
+  --border-strong: var(--ll-pencil-mark);
+  --grid-line: rgb(143 193 247 / 0.08);
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: var(--ll-desk);
+  color: var(--ll-ink);
+  caret-color: var(--ll-caret);
+  accent-color: var(--ll-marker);
 }
 
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-feature-settings: "ss01" on, "cv02" on, "cv03" on;
+  background-color: var(--ll-desk);
+  color: var(--ll-ink);
+  font-family: "Kevin Sans Hand", "Kevin Sans", system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
 }
 
 ::selection {
-  background-color: var(--accent-primary);
-  color: var(--accent-foreground);
+  background-color: var(--ll-hi-select);
+  color: var(--ll-selection-text);
 }
 
-.editorial-grid-bg {
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 48px 48px;
+:focus-visible {
+  outline: 2px solid var(--ll-focus);
+  outline-offset: 2px;
 }
 
 .focus-ring {
-  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)];
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ll-focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ll-paper)];
+}
+
+/* Desk Surface */
+.ll-desk {
+  background-color: var(--ll-desk);
+  background-image: var(--ll-desk-vignette), var(--ll-tex-linen);
+  background-size: 100% 100%, 160px 160px;
+}
+
+.ll-num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.ll-multiply {
+  mix-blend-mode: var(--ll-blend);
+}
+
+/* Paper Base & Stock Layers */
+.ll-paper {
+  position: relative;
+  isolation: isolate;
+}
+
+.ll-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--ll-z-sheet);
+  pointer-events: none;
+  border-radius: var(--ll-sheet-radius);
+  box-shadow: var(--ll-sheet-shadow, var(--ll-shadow-paper));
+  background-color: var(--ll-stock, var(--ll-paper));
+  background-image:
+    linear-gradient(
+      color-mix(in srgb, var(--ll-stock, var(--ll-paper)) var(--ll-veil, 0%), transparent),
+      color-mix(in srgb, var(--ll-stock, var(--ll-paper)) var(--ll-veil, 0%), transparent)
+    ),
+    var(--ll-tex-paper, var(--ll-tex-fibre), var(--ll-tex-relief), var(--ll-tex-cloud)),
+    var(--ll-paper-light);
+  background-size: 100% 100%, var(--ll-tex-paper-size, 240px 240px, 192px 192px, 720px 720px), 100% 100%;
+  background-position: 0 0, var(--ll-tex-paper-pos, 0 0, 0 0, 0 0), 0 0;
+  rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt, 0deg), var(--ll-tilt-max));
+  transition:
+    rotate var(--ll-dur-sheet) var(--ll-ease-settle),
+    box-shadow var(--ll-dur-hover) var(--ll-ease-out);
+}
+
+.ll-paper:where([data-edge]:not([data-edge="cut"]))::before {
+  background: none;
+  box-shadow: none;
+}
+
+.ll-face {
+  position: absolute;
+  z-index: var(--ll-z-sheet);
+  pointer-events: none;
+  background-color: var(--ll-stock, var(--ll-paper));
+  background-image:
+    linear-gradient(
+      color-mix(in srgb, var(--ll-stock, var(--ll-paper)) var(--ll-veil, 0%), transparent),
+      color-mix(in srgb, var(--ll-stock, var(--ll-paper)) var(--ll-veil, 0%), transparent)
+    ),
+    var(--ll-tex-paper, var(--ll-tex-fibre), var(--ll-tex-relief), var(--ll-tex-cloud)),
+    var(--ll-paper-light);
+  background-size: 100% 100%, var(--ll-tex-paper-size, 240px 240px, 192px 192px, 720px 720px), 100% 100%;
+  background-position: 0 0, var(--ll-tex-paper-pos, 0 0, 0 0, 0 0), 0 0;
+  rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt, 0deg), var(--ll-tilt-max));
+  clip-path: var(--ll-face-path);
+  transition: rotate var(--ll-dur-sheet) var(--ll-ease-settle);
+}
+
+.ll-face-shadow {
+  position: absolute;
+  z-index: var(--ll-z-sheet);
+  pointer-events: none;
+  rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt, 0deg), var(--ll-tilt-max));
+  transition: rotate var(--ll-dur-sheet) var(--ll-ease-settle);
+}
+
+.ll-tilt-layer {
+  rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt, 0deg), var(--ll-tilt-max));
+}
+
+.ll-decor-tilt > svg[data-ink]:not([data-ink="sheet"], [data-ink="tape"], [data-ink="sticker"], [data-ink="prop"]) {
+  rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt-decor, 0deg), var(--ll-tilt-max));
+}
+
+/* Stock Mapping (Tailwind v3 compatible equivalents of Looseleaf stocks) */
+.ll-stock-paper { --ll-stock: var(--ll-paper); }
+.ll-stock-card { --ll-stock: var(--ll-paper); }
+.ll-stock-slip { --ll-stock: var(--ll-slip); }
+.ll-stock-index-card { --ll-stock: var(--ll-card); }
+.ll-stock-graph { --ll-stock: var(--ll-graph); }
+.ll-stock-check { --ll-stock: var(--ll-check); }
+.ll-stock-pad { --ll-stock: var(--ll-pad); }
+.ll-stock-kraft { --ll-stock: var(--ll-kraft); }
+.ll-stock-photo { --ll-stock: var(--ll-photo); }
+.ll-stock-sticky-yellow { --ll-stock: var(--ll-sticky-yellow); }
+.ll-stock-sticky-green { --ll-stock: var(--ll-sticky-green); }
+.ll-stock-sticky-orange { --ll-stock: var(--ll-sticky-orange); }
+.ll-stock-sticky-pink { --ll-stock: var(--ll-sticky-pink); }
+.ll-stock-sticky-blue { --ll-stock: var(--ll-sticky-blue); }
+
+.ll-tooth-cold {
+  --ll-tex-paper: var(--ll-tex-fibre), var(--ll-tex-relief), var(--ll-tex-cloud);
+  --ll-tex-paper-size: 240px 240px, 192px 192px, 720px 720px;
+}
+.ll-tooth-fine {
+  --ll-tex-paper: var(--ll-tex-fibre), var(--ll-tex-slip), var(--ll-tex-cloud);
+  --ll-tex-paper-size: 240px 240px, 128px 128px, 720px 720px;
+}
+.ll-tooth-kraft {
+  --ll-tex-paper: var(--ll-tex-fibre), var(--ll-tex-kraft), var(--ll-tex-cloud);
+  --ll-tex-paper-size: 240px 240px, 192px 96px, 720px 720px;
+}
+
+.ll-sheet-slip { --ll-sheet-shadow: var(--ll-shadow-slip); }
+.ll-sheet-card { --ll-sheet-shadow: var(--ll-shadow-card); }
+.ll-sheet-pad { --ll-sheet-shadow: var(--ll-shadow-pad); }
+.ll-sheet-check { --ll-sheet-shadow: var(--ll-shadow-check); }
+.ll-sheet-sticky { --ll-sheet-shadow: var(--ll-shadow-sticky); }
+
+/* SVG Ink Layers & Interactive States */
+svg[data-ink] {
+  overflow: visible;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  isolation: isolate;
+}
+
+:where([data-ink-host], .ll-ink-host) {
+  position: relative;
+  isolation: isolate;
+  outline: 1.5px solid var(--ll-pencil-mark);
+  outline-offset: -1.5px;
+}
+
+:where([data-ink-host], .ll-ink-host)[data-ink-ready] {
+  outline-color: transparent;
+}
+
+:where(svg[data-ink] [data-layer]:not([data-layer="rest"])) {
+  opacity: 0;
+  visibility: hidden;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition:
+    opacity var(--ll-dur-press) var(--ll-ease-out),
+    scale var(--ll-dur-press) var(--ll-ease-out),
+    rotate var(--ll-dur-press) var(--ll-ease-out),
+    translate var(--ll-dur-press) var(--ll-ease-out),
+    visibility 0s linear var(--ll-dur-press);
+}
+
+:where(svg[data-ink]) {
+  transition: rotate var(--ll-dur-hover) var(--ll-ease-settle);
+}
+
+:where(svg[data-ink] [data-part], svg[data-ink] [data-layer="rest"]) {
+  transition: translate var(--ll-dur-hover) var(--ll-ease-settle);
+}
+
+svg[data-ink] [data-layer][data-on]:not([data-layer="rest"]) {
+  opacity: 1;
+  visibility: visible;
+  scale: none;
+  rotate: none;
+}
+
+@media (hover: hover) {
+  :hover:where(:not(:disabled, [aria-disabled="true"], [data-disabled]:not([data-disabled="false"]))) > svg[data-ink] [data-layer="hover"] {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--ll-dur-fade) var(--ll-ease-out), visibility 0s;
+  }
+  :hover:where(:not(:disabled, [aria-disabled="true"], [data-disabled]:not([data-disabled="false"]))) > svg[data-ink]:where(:has([data-layer="hover"]):not([data-still])) {
+    rotate: var(--ll-hover-tilt);
+  }
+  :hover:where(:not(:disabled, [aria-disabled="true"], [data-disabled]:not([data-disabled="false"]))) > svg[data-ink]:where(:has([data-layer="hover"])) [data-part="fill"] {
+    translate: calc(var(--mx, 0) * var(--ll-hover-misreg) * 1px) calc(var(--my, 0) * var(--ll-hover-misreg) * 1px);
+  }
+}
+
+:is(:active:where(:not(:disabled, [aria-disabled="true"], [data-disabled]:not([data-disabled="false"]))), [data-pressed]:not([data-pressed="false"])) > svg[data-ink] [data-layer="pressed"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--ll-dur-press) var(--ll-ease-out), visibility 0s;
+}
+
+:is(:active:where(:not(:disabled, [aria-disabled="true"], [data-disabled]:not([data-disabled="false"]))), [data-pressed]:not([data-pressed="false"])) > svg[data-ink] [data-layer="rest"] {
+  translate: calc(var(--ll-press-sink) * 0.6) var(--ll-press-sink);
+}
+
+[data-ink-sink="self"]:is(:active:where(:not(:disabled, [aria-disabled="true"], [data-disabled]:not([data-disabled="false"]))), [data-pressed]:not([data-pressed="false"])) > svg[data-ink] [data-layer="rest"] {
+  translate: calc(var(--ll-press-sink) * 0.6) 0;
+}
+
+:is(:focus-visible, [data-focus-visible], :has(> :is(input, textarea, select):focus-visible), [data-ink-focus="within"]:has(:focus-visible)) > svg[data-ink] [data-layer="focus"] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--ll-dur-fade) var(--ll-ease-out), visibility 0s;
+}
+
+:is([data-state="checked"], [data-state="on"], [data-state="active"], [aria-checked="true"], [aria-pressed="true"], [aria-selected="true"]) > svg[data-ink] [data-layer="checked"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+svg[data-ink="sheet"] {
+  rotate: clamp(calc(var(--ll-tilt-max) * -1), var(--ll-tilt, 0deg), var(--ll-tilt-max));
+}
+
+/* Text Marks & Draw-on Reveal Classes (Tailwind v3-safe) */
+@keyframes ll-wipe {
+  from {
+    clip-path: inset(-10% var(--ll-wipe-r, 100%) -10% var(--ll-wipe-l, -4%));
+  }
+  to {
+    clip-path: inset(-10% -4% -10% -4%);
+  }
+}
+
+@keyframes ll-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ll-mark-wipe[data-animate][data-mark="idle"] > svg {
+  clip-path: inset(-10% var(--ll-wipe-r, 100%) -10% var(--ll-wipe-l, -4%));
+}
+
+.ll-mark-wipe[data-animate][data-mark="in"] > svg {
+  animation: ll-wipe var(--ll-dur-draw) var(--ll-ease-out) var(--ll-draw-delay, 0s) both;
+}
+
+.ll-mark-reveal[data-animate] > svg [data-part="reveal"] {
+  stroke-dasharray: 1;
+}
+
+.ll-mark-reveal[data-animate][data-mark="idle"] > svg [data-part="reveal"] {
+  stroke-dashoffset: 1;
+}
+
+.ll-mark-reveal[data-animate][data-mark="in"] > svg [data-part="reveal"] {
+  animation: ll-draw var(--ll-dur-draw) var(--ll-ease-out) var(--ll-draw-delay, 0s) both;
+}
+
+.ll-reveal-stroke > svg [data-part="reveal"] {
+  stroke-dasharray: 1;
+}
+
+.ll-reveal-checked[data-touched][data-state="checked"] > svg [data-part="reveal"],
+.ll-reveal-on[data-touched][data-state="on"] > svg [data-part="reveal"] {
+  animation: ll-draw var(--ll-dur-sheet) var(--ll-ease-out) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --ll-motion: 0;
+    --ll-jitter-k: 0;
+  }
   html {
     scroll-behavior: auto;
   }

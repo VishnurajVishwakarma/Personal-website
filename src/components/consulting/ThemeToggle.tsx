@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from 'react'
 import { Moon, Sun } from 'lucide-react'
+import { InkButton } from '@/components/looseleaf/InkButton'
 import { useTheme } from './ThemeProvider'
 
 const emptySubscribe = () => () => {}
@@ -21,8 +22,11 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
   }
 
   return (
-    <button
+    <InkButton
       type="button"
+      variant="outline"
+      size="icon"
+      seed="site-theme-toggle"
       onClick={toggleTheme}
       aria-label={
         mounted
@@ -31,7 +35,7 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
       }
       aria-pressed={mounted ? isDark : undefined}
       title={mounted ? `Switch to ${isDark ? 'light' : 'dark'} mode` : 'Toggle theme'}
-      className={`focus-ring inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border-subtle)] bg-[var(--surface)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] ${className}`}
+      className={className}
     >
       {mounted ? (
         isDark ? (
@@ -42,7 +46,6 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
       ) : (
         <span className="h-4 w-4 rounded-full border border-current opacity-50" aria-hidden="true" />
       )}
-    </button>
+    </InkButton>
   )
 }
-
